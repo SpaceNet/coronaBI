@@ -1,0 +1,3 @@
+
+infra/gcp/k8s/
+infra/gcp/gcloud_config.sh
