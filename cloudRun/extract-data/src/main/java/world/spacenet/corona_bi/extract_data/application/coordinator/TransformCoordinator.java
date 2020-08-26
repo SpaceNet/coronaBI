@@ -10,26 +10,16 @@ import javax.ws.rs.core.Response;
 
 import org.jboss.resteasy.annotations.Body;
 
+import world.spacenet.corona_bi.extract_data.application.service.TransformService;
+
 @ApplicationScoped
 public class TransformCoordinator {
 
-    @Inject TransformCoordinator transformCoordinator;
+    @Inject TransformService transformService;
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("/coronabi/gcsnotification")
-	public Response transformData(Body gcsNotification) {
+	public Response separateData(Body gcsNotification) {
         try {
-            return transformCoordinator.retrieveOrder(gcsNotification);
-        } catch (JAXBException jaxbException) {
-            jaxbException.printStackTrace();
-            return Response.ok(jaxbException.getMessage()).type(MediaType.TEXT_PLAIN_TYPE).build();
-        } catch (IOException | InterruptedException pubsubException) {
-            pubsubException.printStackTrace();
-            return Response.ok(pubsubException.getMessage()).type(MediaType.TEXT_PLAIN_TYPE).build();
-        } catch (ExecutionException executionException) {
-            executionException.printStackTrace();
-            return Response.ok(executionException.getMessage()).type(MediaType.TEXT_PLAIN_TYPE).build();
+            return transformService.separateData(gcsNotification);
         } catch (Exception exception) {
             exception.printStackTrace();
             return Response.ok(exception.getMessage()).type(MediaType.TEXT_PLAIN_TYPE).build();

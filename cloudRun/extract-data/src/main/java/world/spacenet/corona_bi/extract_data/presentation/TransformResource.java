@@ -1,9 +1,13 @@
 package world.spacenet.corona_bi.extract_data.presentation;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import org.jboss.resteasy.annotations.Body;
 
 import world.spacenet.corona_bi.extract_data.application.coordinator.TransformCoordinator;
 
@@ -12,10 +16,12 @@ public class TransformResource {
 
     @Inject TransformCoordinator transformCoordinator;
 
-    @GET
-    public Response extract() {
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/coronabi/gcsnotification")
+    public Response transform(Body gcsNotification) {
 
-        return extractCoordinator.extractData();
+        return transformCoordinator.separateData(gcsNotification);
 
     }
 }
