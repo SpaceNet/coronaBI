@@ -1,0 +1,5 @@
+PROJECT_ID=spacenet-lab
+KSA=corona-bi-ksa
+K8NAMESPACE=corona-bi
+CLUSTER_NAME=the-moon-shots
+CLUSTER_ZONE=us-central1-c
